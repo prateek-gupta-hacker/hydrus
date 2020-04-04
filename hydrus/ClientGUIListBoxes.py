@@ -1463,7 +1463,7 @@ class ListBox( QW.QScrollArea ):
             
         
         def paintEvent( self, event ):
-            
+            HydrusData.DebugPrint( 'paint event' )
             self._parent._SetVirtualSize()
             
             painter = QG.QPainter( self )
