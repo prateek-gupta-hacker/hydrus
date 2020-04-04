@@ -651,7 +651,7 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def _DropdownHideShow( self ):
-        
+        HydrusData.DebugPrint( 'dropdown hideshow' )
         if not self._float_mode:
             
             return
@@ -710,7 +710,7 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def _ScheduleResultsRefresh( self, delay ):
-        
+        HydrusData.DebugPrint( 'schedule results refresh' )
         if self._schedule_results_refresh_job is not None:
             
             self._schedule_results_refresh_job.Cancel()
@@ -822,7 +822,7 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def _UpdateSearchResults( self ):
-        
+        HydrusData.DebugPrint( 'update search results' )
         self._schedule_results_refresh_job = None
         
         self._CancelSearchResultsFetchJob()
@@ -848,7 +848,7 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def keyPressFilter( self, event ):
-        
+        HydrusData.DebugPrint( 'keypress' )
         HG.client_controller.ResetIdleTimer()
         
         ( modifier, key ) = ClientGUIShortcuts.ConvertKeyEventToSimpleTuple( event )
@@ -1033,14 +1033,14 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def EventMove( self, event ):
-        
+        HydrusData.DebugPrint( 'event move' )
         self._DropdownHideShow()
         
         return True # was: event.ignore()
         
     
     def EventText( self, new_text ):
-        
+        HydrusData.DebugPrint( 'event text' )
         num_chars = len( self._text_ctrl.text() )
         
         if num_chars == 0:
@@ -1062,7 +1062,7 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def ForceSizeCalcNow( self ):
-        
+        HydrusData.DebugPrint( 'force sizecalc' )
         if self._float_mode:
             
             self._DropdownHideShow()
@@ -1098,7 +1098,7 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def SetFetchedResults( self, job_key, search_text, search_text_for_cache, cached_results, results ):
-        
+        HydrusData.DebugPrint( 'set fetched results' )
         if self._current_fetch_job_key is not None and self._current_fetch_job_key.GetKey() == job_key.GetKey():
             
             self._CancelSearchResultsFetchJob()
@@ -1113,7 +1113,7 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def setFocus( self, focus_reason = QC.Qt.OtherFocusReason ):
-        
+        HydrusData.DebugPrint( 'set focus' )
         if HC.PLATFORM_MACOS:
             
             HG.client_controller.CallAfterQtSafe( self._text_ctrl, self._text_ctrl.setFocus, focus_reason )
@@ -1125,7 +1125,7 @@ class AutoCompleteDropdown( QW.QWidget ):
         
     
     def SetForceDropdownHide( self, value ):
-        
+        HydrusData.DebugPrint( 'force dropdown hideshow' )
         self._force_dropdown_hide = value
         
         self._DropdownHideShow()
@@ -1167,7 +1167,7 @@ class AutoCompleteDropdownTags( AutoCompleteDropdown ):
         
     
     def _ChangeFileService( self, file_service_key ):
-        
+        HydrusData.DebugPrint( 'change file service' )
         if file_service_key == CC.COMBINED_FILE_SERVICE_KEY and self._tag_service_key == CC.COMBINED_TAG_SERVICE_KEY:
             
             local_tag_services = HG.client_controller.services_manager.GetServices( ( HC.LOCAL_TAG, ) )
@@ -1185,7 +1185,7 @@ class AutoCompleteDropdownTags( AutoCompleteDropdown ):
         
     
     def _ChangeTagService( self, tag_service_key ):
-        
+        HydrusData.DebugPrint( 'change tag service' )
         if tag_service_key == CC.COMBINED_TAG_SERVICE_KEY and self._file_service_key == CC.COMBINED_FILE_SERVICE_KEY:
             
             self._ChangeFileService( CC.LOCAL_FILE_SERVICE_KEY )
@@ -1208,7 +1208,7 @@ class AutoCompleteDropdownTags( AutoCompleteDropdown ):
         
     
     def _SetResultsToList( self, results ):
-        
+        HydrusData.DebugPrint( 'set results to list' )
         self._current_list_raw_entry = self._text_ctrl.text()
         
         self._search_results_list.SetPredicates( results )
@@ -1267,7 +1267,7 @@ class AutoCompleteDropdownTags( AutoCompleteDropdown ):
         
     
     def RefreshFavouriteTags( self ):
-        
+        HydrusData.DebugPrint( 'favourites refresh' )
         favourite_tags = list( HG.client_controller.new_options.GetStringList( 'favourite_tags' ) )
         
         favourite_tags.sort()
@@ -1283,7 +1283,7 @@ class AutoCompleteDropdownTags( AutoCompleteDropdown ):
         
     
     def SetStubPredicates( self, job_key, stub_predicates ):
-        
+        HydrusData.DebugPrint( 'set stub preds' )
         if self._current_fetch_job_key is not None and self._current_fetch_job_key.GetKey() == job_key.GetKey():
             
             self._SetResultsToList( stub_predicates )
@@ -1438,7 +1438,7 @@ class AutoCompleteDropdownTagsRead( AutoCompleteDropdownTags ):
         
     
     def _BroadcastChoices( self, predicates, shift_down ):
-        
+        HydrusData.DebugPrint( 'broadcast choices' )
         or_pred_in_broadcast = self._under_construction_or_predicate is not None and self._under_construction_or_predicate in predicates
         
         if shift_down:
@@ -1495,7 +1495,7 @@ class AutoCompleteDropdownTagsRead( AutoCompleteDropdownTags ):
         
     
     def _BroadcastCurrentText( self, shift_down ):
-        
+        HydrusData.DebugPrint( 'broadcast current text' )
         ( raw_entry, inclusive, entry_text, wildcard_text, search_text, explicit_wildcard, cache_text, entry_predicate ) = self._ParseSearchText()
         
         ( namespace, subtag ) = HydrusTags.SplitTag( search_text )
@@ -1804,7 +1804,7 @@ class AutoCompleteDropdownTagsRead( AutoCompleteDropdownTags ):
         
     
     def _StartSearchResultsFetchJob( self, job_key ):
-        
+        HydrusData.DebugPrint( 'start search results fetch job' )
         parsed_search_text = self._ParseSearchText()
         
         stub_predicates = []
@@ -1932,7 +1932,7 @@ class AutoCompleteDropdownTagsRead( AutoCompleteDropdownTags ):
         
     
     def SetFetchedResults( self, job_key, search_text, search_text_for_cache, cached_results, results, next_search_is_probably_fast ):
-        
+        HydrusData.DebugPrint( 'set fetched results read' )
         if self._current_fetch_job_key is not None and self._current_fetch_job_key.GetKey() == job_key.GetKey():
             
             AutoCompleteDropdownTags.SetFetchedResults( self, job_key, search_text, search_text_for_cache, cached_results, results )
@@ -2120,7 +2120,7 @@ class ListBoxTagsActiveSearchPredicates( ClientGUIListBoxes.ListBoxTagsPredicate
         
     
     def SetPredicates( self, predicates ):
-        
+        HydrusData.DebugPrint( 'set preds to list' )
         self._Clear()
         
         for predicate in predicates:
