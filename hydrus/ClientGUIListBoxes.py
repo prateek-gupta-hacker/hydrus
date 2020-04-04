@@ -1331,6 +1331,8 @@ class ListBox( QW.QScrollArea ):
         
         ideal_virtual_size = QC.QSize( my_size.width(), text_height * len( self._ordered_terms ) )
         
+        HydrusData.DebugPrint( ( ideal_virtual_size, my_size ) )
+        
         if ideal_virtual_size != self.widget().size():
             
             self.widget().setMinimumSize( ideal_virtual_size )
