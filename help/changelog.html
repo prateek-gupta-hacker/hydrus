@@ -8,6 +8,38 @@
 		<div class="content">
 			<h3>changelog</h3>
 			<ul>
+				<li><h3>version 404</h3></li>
+				<ul>
+					<li>column lists:</li>
+					<li>all multi-column lists across the program now remember the widths of their columns when they are next recreated</li>
+					<li>the last column of any list is now universally the 'stretching' column, which should correctly initialise with its preferred/previous size, but also grows and shrinks with the parent window</li>
+					<li>while all lists retain their initial rows height, and those in the gallery and watcher management panels will continue to grow and shrink in a fixed way, all lists in dialog windows can now be shrunk down to four rows</li>
+					<li>the minimum size of any column is now much smaller, about three characters</li>
+					<li>all column headers now tooltip their name</li>
+					<li>lists should be better about sizing in non-100% OS UI scalings</li>
+					<li>the lists that are automatically sorted (e.g. the download pages, and manage subs) now remember the last sort you gave them</li>
+					<li>future plans, now within reach:</li>
+					<li>all lists will sort, sort arrows will appear on the header, and sort will be faster</li>
+					<li>columns will be rearrangeable</li>
+					<li>columns will be hide/showable, and initially hidden complicated columns will be available</li>
+					<li>there will be some, maybe optional, capability to have lists sync live, so if you edit one, the others do the same</li>
+					<li>num rows height memory, maybe--we'll see how the above shakes out first</li>
+					<li>boring code changes:</li>
+					<li>moved list code to a new sub-module</li>
+					<li>wrote a status object for column list current columns, widths, and sort, and plugged it into list code</li>
+					<li>wrote a manager to handle column statuses, and plugged it into the main controller and db</li>
+					<li>wrote definitions for every list (66 or so different lists!) and all their columns, and unified width, name, default sort, and future hideabality and default hide/show status to that one easy to edit and extend location</li>
+					<li>rewrote list column and sort initialisation to work off the new status object and added hooks for list sorting and column resizing to save new status back</li>
+					<li>rewrote every list column instantiation to use the new system</li>
+					<li>numerous misc column list code cleanup</li>
+					<li>.</li>
+					<li>the rest:</li>
+					<li>double middle-clicking on the page tab bar should now correctly close two tabs in a row (rather than opening the rename page dialog on the second)</li>
+					<li>entering an odd number of hex characters into system:hash no longer causes an error. this will be changed in future to properly highlight and explain badly pasted or incorrect-length hashes in future</li>
+					<li>the new red text for non-functional status texts in review services now properly re-colours itself between normal/red when an error or resolution occurs while the panel is open</li>
+					<li>hydrus now knows if it is running in the Haiku operating system and has preliminary platform specificity. if you are interested in helping to get hydrus running properly in Haiku, please join in with github issue #358</li>
+					<li>cleaned up a mix of smaller code, unused variables and imports and so on</li>
+				</ul>
 				<li><h3>version 403</h3></li>
 				<ul>
 					<li>shortcuts:</li>
